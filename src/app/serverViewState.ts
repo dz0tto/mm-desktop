@@ -327,7 +327,7 @@ export class ServerViewState {
                 // Check the Site URL as well to see if it's already pre-configured
                 const existingServer = ServerManager.lookupViewByURL(parsedSiteURL, true);
                 if (existingServer && existingServer.server.id !== currentId) {
-                    return {status: URLValidationStatus.URLExists, existingServerName: existingServer.server.name, validatedURL: existingServer.server.url.toString()};
+                    return {status: URLValidationStatus.URLExists, existingServerName: existingServer.server.name, validatedURL: remoteURL.toString()};
                 }
 
                 // If we can't reach the remote Site URL, there's probably a configuration issue
@@ -338,7 +338,7 @@ export class ServerViewState {
             }
 
             // Otherwise fix it for them and return
-            return {status: URLValidationStatus.URLUpdated, serverVersion: remoteInfo.serverVersion, serverName: remoteServerName, validatedURL: remoteInfo.siteURL};
+            return {status: URLValidationStatus.URLUpdated, serverVersion: remoteInfo.serverVersion, serverName: remoteServerName, validatedURL: remoteURL.toString()};
         }
 
         return {status: URLValidationStatus.OK, serverVersion: remoteInfo.serverVersion, serverName: remoteServerName, validatedURL: remoteURL.toString()};
